@@ -3,9 +3,6 @@
 #include "atl.h"
 
 #  include "config.h"
-#  ifdef HAVE_WINDOWS_H
-#    include <windows.h>
-#  else
 #    include <ctype.h>
 #    include <stdio.h>
 #    include <stdlib.h>
@@ -13,7 +10,6 @@
 #    ifdef HAVE_MALLOC_H
 #      include <malloc.h>
 #    endif
-#  endif
 
 #include <unix_defs.h>
 
@@ -1403,7 +1399,7 @@ get_attr(attr_list list,int index, atom_t *name,
 	if (index < list->l.list.iattrs->int_attr_count) {
 	    *name = list->l.list.iattrs->iattr[index].attr_id;
 	    *val_type = Attr_Int4;
-	    *value = (attr_value) (long) list->l.list.iattrs->iattr[index].value;
+	    *value = (attr_value) (BIG_INT) list->l.list.iattrs->iattr[index].value;
 	    return 1;
 	}
 	index -= list->l.list.iattrs->int_attr_count;
@@ -1493,8 +1489,7 @@ free_attr_list(attr_list list)
                 free((char *)list->l.list.attributes[i].value.u.p);
                 break;
             case Attr_Opaque: {
-                attr_opaque o =
-                    (attr_opaque) list->l.list.attributes[i].value.u.o;
+                attr_opaque o = list->l.list.attributes[i].value.u.o;
                 if (o.buffer) {
                     free(o.buffer);
                 }
@@ -1611,8 +1606,8 @@ attr_list_subset (attr_list l1, attr_list l2)
 	
 typedef struct Attr_tmp_buffer {
     void *tmp_buffer;
-    int tmp_buffer_size;
-    int tmp_buffer_in_use_size;
+    unsigned int tmp_buffer_size;
+    unsigned int tmp_buffer_in_use_size;
 } Attr_tmp_buffer;
 
 AttrBuffer
