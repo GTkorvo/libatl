@@ -26,3 +26,5 @@
 #else
 whoops
 #endif
+
+#pragma warning (disable:4996) // warning C4996 'sprintf' may be unsafe

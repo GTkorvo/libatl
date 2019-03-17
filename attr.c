@@ -532,13 +532,20 @@ add_attr(attr_list list, atom_t attr_id, attr_value_type val_type, attr_value va
     switch(val_type) {
     case Attr_Int8:
 	if (sizeof(BIG_INT) == 8) {
-	    value.u.l = (long) (BIG_INT) val;
+	    value.u.l = (BIG_INT) val;
 	}
     case Attr_Int4:
     case Attr_Atom:
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable:4244) // warning C4244: '=' : conversion from 'int' to 'uint16_t', possible loss of data
+#endif //_MSC_VER
       if (sizeof(int) == 4) {
 	  value.u.i = (int) (BIG_INT)val;
       }
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif //_MSC_VER
       break;
     case Attr_Float16:
 	if (sizeof(double) == 16) {
@@ -669,13 +676,20 @@ replace_attr(attr_list list, atom_t attr_id, attr_value_type val_type, attr_valu
     switch(val_type) {
     case Attr_Int8:
         if (sizeof(BIG_INT) == 8) {
-            value.u.l = (long) (BIG_INT) val;
+            value.u.l = (BIG_INT) val;
         }
     case Attr_Int4:
     case Attr_Atom:
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable:4244) // warning C4244: '=' : conversion from 'int' to 'uint16_t', possible loss of data
+#endif //_MSC_VER
         if (sizeof(int) == 4) {
             value.u.i = (long) (BIG_INT)val;
         }
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif //_MSC_VER
         break;
     case Attr_Float16:
         if (sizeof(double) == 16) {
