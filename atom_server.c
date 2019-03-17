@@ -13,7 +13,9 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
+#ifdef HAVE_SYS_TIME
 #include <sys/time.h>
+#endif
 #else
 #include <windows.h>
 #include <winsock.h>

@@ -50,7 +50,9 @@ typedef struct _atom_server {
 static char *atom_server_host = NULL;
 static int establish_server_connection(atom_server as, int do_fallback);
 
+#ifdef HAVE_SYS_TIME
 #include <sys/time.h>
+#endif
 
 #ifndef O_NONBLOCK
 #define O_NONBLOCK 0x80
