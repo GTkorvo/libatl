@@ -12,3 +12,8 @@
 #include <malloc.h>
 #endif
 
+#ifdef _MSC_VER
+#define strdup(s) _strdup(s)
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+

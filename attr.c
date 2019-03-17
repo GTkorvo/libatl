@@ -343,7 +343,7 @@ add_float_attr(attr_list list, atom_t attr_id, double fvalue)
 {
     attr_value_type t = Attr_Float4;
     attr_union tmp;
-    tmp.u.f = fvalue;
+    tmp.u.f = (float) fvalue;
     if (sizeof(float) == 8) t = Attr_Float8;
     if (sizeof(float) == 16) t = Attr_Float16;
     return add_pattr(list, attr_id, t, tmp);
@@ -404,7 +404,7 @@ set_float_attr(attr_list list, atom_t attr_id, double fvalue)
 {
     attr_value_type t = Attr_Float4;
     attr_union tmp;
-    tmp.u.f = fvalue;
+    tmp.u.f = (float) fvalue;
     if (sizeof(float) == 8) t = Attr_Float8;
     if (sizeof(float) == 16) t = Attr_Float16;
     return set_pattr(list, attr_id, t, tmp);
@@ -447,7 +447,7 @@ replace_float_attr(attr_list list, atom_t attr_id, double fvalue)
 {
     attr_value_type t = Attr_Float4;
     attr_union tmp;
-    tmp.u.f = fvalue;
+    tmp.u.f = (float) fvalue;
     if (sizeof(float) == 8) t = Attr_Float8;
     if (sizeof(float) == 16) t = Attr_Float16;
     return replace_pattr(list, attr_id, t, tmp);
@@ -531,13 +531,13 @@ add_attr(attr_list list, atom_t attr_id, attr_value_type val_type, attr_value va
     attr_union value;
     switch(val_type) {
     case Attr_Int8:
-	if (sizeof(long) == 8) {
-	    value.u.l = (long) val;
+	if (sizeof(intptr_t) == 8) {
+	    value.u.l = (intptr_t) val;
 	}
     case Attr_Int4:
     case Attr_Atom:
       if (sizeof(int) == 4) {
-	  value.u.i = (long)val;
+	  value.u.i = (intptr_t)val;
       }
       break;
     case Attr_Float16:
@@ -590,7 +590,7 @@ add_attr(attr_list list, atom_t attr_id, attr_value_type val_type, attr_value va
 	}
 	
 	list->l.list.iattrs->iattr[i+1].attr_id = attr_id;
-	list->l.list.iattrs->iattr[i+1].value = (int4) (long) val;
+	list->l.list.iattrs->iattr[i+1].value = (int4) (intptr_t) val;
 	list->l.list.iattrs->int_attr_count++;
     } else {
 	int count = list->l.list.iattrs->other_attr_count;
@@ -668,13 +668,13 @@ replace_attr(attr_list list, atom_t attr_id, attr_value_type val_type, attr_valu
     assert(list->list_of_lists == 0);
     switch(val_type) {
     case Attr_Int8:
-        if (sizeof(long) == 8) {
-            value.u.l = (long) val;
+        if (sizeof(intptr_t) == 8) {
+            value.u.l = (intptr_t) val;
         }
     case Attr_Int4:
     case Attr_Atom:
         if (sizeof(int) == 4) {
-            value.u.i = (long)val;
+            value.u.i = (intptr_t)val;
         }
         break;
     case Attr_Float16:
